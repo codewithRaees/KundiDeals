@@ -1,7 +1,9 @@
 
 import './App.css'
 
+
 import Header from './components/Header'
+import ProductsContainer from './components/ProductsContainer'
 
 
 function App() {
@@ -9,7 +11,7 @@ function App() {
   return (
     <>
       <Header />
-      <CardContainer />
+      <ProductsContainer />
       
     </>
   )
