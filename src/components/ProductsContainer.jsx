@@ -2,15 +2,15 @@ import { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import Shimmer from "./Shimmer";
 
-const CardContainer = () => {
-  const [productData, setProdcutData] = useState([])
+const ProductsContainer = () => {
+  const [productData, setProductData] = useState([])
   const [loading , setLoading] = useState(true)
   useEffect(() => {
     try {
       async function requestData() {
      const response = await fetch('https://fakestoreapi.com/products')
       const data = await response.json()
-        setProdcutData(data)
+        setProductData(data)
         
       } 
        requestData()
@@ -56,4 +56,4 @@ const CardContainer = () => {
   )
 }
 
-export default CardContainer
+export default ProductsContainer
