@@ -1,5 +1,6 @@
 
 import './App.css'
+import CategoryContainer from './components/CategoryContainer'
 
 
 import Header from './components/Header'
@@ -11,6 +12,7 @@ function App() {
   return (
     <>
       <Header />
+      <CategoryContainer/>
       <ProductsContainer />
       
     </>
