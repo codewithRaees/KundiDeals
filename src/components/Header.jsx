@@ -1,4 +1,5 @@
-import { Menu, X } from "lucide-react";
+import { Menu, X, ShoppingCart, User } from "lucide-react";
+import { FaUser,FaShoppingCart  } from "react-icons/fa";
 import logo from '../assets/images/logo.png';
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from "framer-motion";
@@ -25,14 +26,29 @@ export default function Header() {
   <img src={logo} alt="Kundi Deals Logo" className="w-24 h-auto" />
 </div>
           <div className="menues">
-               <nav className="main-nav hidden  md:flex gap-5 items-center ">
+               <nav className="main-nav hidden  md:flex gap-5 items-center text-red-400 ">
               <ul className="flex justify-around gap-10">
                   {
-                      mainMenu.map((item, index)=> <li key={index}><a href="#">{item}</a></li>)
+                      mainMenu.map((item, index)=> <li className="hover:text-red-500 transform hover:scale-110 transition duration-200" key={index}><a href="#">{item}</a></li>)
                   }
                  
-                  </ul>
-                 <button type="button" className="text-white bg-linear-to-r from-pink-400 via-pink-500 to-pink-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 font-medium cursor-pointer rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Register</button>
+          </ul>
+          <div  className="relative group inline-block">
+            <FaUser size={26} className="text-red-300 transform hover:scale-110 transition duration-200 " />
+            <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block 
+                       bg-red-200 text-white text-xs rounded-xl px-3 py-1 shadow-lg">
+        Register
+      </span>
+          </div>
+         <div className="relative group inline-block">
+  <FaShoppingCart size={26} className="cursor-pointer transform hover:scale-110 transition duration-200 text-red-300" />
+  <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block 
+                   bg-red-200 text-white text-xs rounded-xl px-3 py-1 shadow-lg">
+    Cart
+  </span>
+</div>
+      
+                 
           </nav>
               <button className={`md:hidden block `} onClick={() => setIsOpen(!isOpen)}>
                    {isOpen ? <X size={24} /> : <Menu size={24} />}
