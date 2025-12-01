@@ -7,7 +7,7 @@ const ProductsContainer = () => {
   const [productData, setProductData] = useState([]);
   const [loading, setLoading] = useState(true);
   const {cart, setCart} = useOutletContext()
-   console.log(cart)
+ 
   useEffect(() => {
     
     async function requestData() {

@@ -11,7 +11,7 @@ const [addToWishList , setAddToWishList] = useState(false)
 const tag= tags?.[1];
  
   const handleCartItem = () => {
-    const isProductExist = cart.some(product => product.id === productInfo.id);
+    const isProductExist = cart?.some(product => product.id === productInfo.id);
     if (isProductExist) {
       const updatedCart = cart.map(product => {
         if (product.id === productInfo.id) {
