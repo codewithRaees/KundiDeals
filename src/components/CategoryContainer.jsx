@@ -29,7 +29,6 @@ const CategoryContainer = () => {
        
     }, [] )
    
-console.log(productCategories)
   return (
       <section className="py-8 px-4">
          
@@ -41,8 +40,8 @@ console.log(productCategories)
           </p>
         </header>
  <div className="grid grid-items-center grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                  {productCategories.map((cat) => (<CategoryCard
-                      key={cat.id}
+                  {productCategories.map((cat, index) => (<CategoryCard
+                      key={index}
                       name={cat.name}
                       image={cat.image}
                   />

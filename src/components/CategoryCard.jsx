@@ -8,7 +8,7 @@ const CategoryCard = ({image , name}) => {
       className="group relative w-full max-w-xs bg-white rounded-2xl shadow-md overflow-hidden transform transition duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-red-400"
       aria-label={`Open category Electronics`}
           >
-               <div className="h-44 bg-red-50 flex items-center justify-center overflow-hidden">
+               <div className="h-44 bg-purple-100 flex items-center justify-center overflow-hidden">
         <img
           src={image}
           alt={name}

@@ -1,12 +1,15 @@
 import { Menu, X, ShoppingCart, User } from "lucide-react";
-import { FaUser,FaShoppingCart  } from "react-icons/fa";
+import { FaUser,FaShoppingCart, FaRegHeart  } from "react-icons/fa";
 import logo from '../assets/images/logo.png';
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from "framer-motion";
+import RegisterPortal from "./RegisterPortal";
+import { Link } from "react-router";
 
-export default function Header() {
-    const [isOpen , setIsOpen] = useState(false)
-    const mainMenu = ['Home', 'Products', 'About', 'Contact']
+export default function Header({cartCount}) {
+  const [isOpen, setIsOpen] = useState(false)
+  const [isRegisterOpen, setIsRegisterOpen] = useState(false)
+    const mainMenu = ['Home', 'Products', 'About', 'Contact','Tasks Completed']
 
     useEffect(() => {
         const handleResize = () => {
@@ -21,33 +24,46 @@ export default function Header() {
     
 
   return (
-      <header className="w-auto shadow-md  flex justify-between md:pl-10  pl-2 pr-2 md:pr-10 items-center">
+      <header className="w-full shadow-md  flex justify-between md:pl-10  pl-2 pr-2 md:pr-10 items-center">
       <div className="flex items-center">
   <img src={logo} alt="Kundi Deals Logo" className="w-24 h-auto" />
 </div>
           <div className="menues">
-               <nav className="main-nav hidden  md:flex gap-5 items-center text-red-400 ">
+               <nav className="main-nav hidden  md:flex gap-5 items-center text-purple-600 ">
               <ul className="flex justify-around gap-10">
                   {
-                      mainMenu.map((item, index)=> <li className="hover:text-red-500 transform hover:scale-110 transition duration-200" key={index}><a href="#">{item}</a></li>)
+                      mainMenu.map((item, index)=> <li className="hover:text-purple-700 transform hover:scale-110 transition duration-200" key={index}><Link to={item ==='Home' ? "" :item.replace(/\s+/g, '').toLowerCase()}>{item}</Link></li>)
                   }
                  
           </ul>
           <div  className="relative group inline-block">
-            <FaUser size={26} className="text-red-300 transform hover:scale-110 transition duration-200 " />
+            <FaUser onClick={() => 
+              setIsRegisterOpen(!isRegisterOpen)
+             } size={26} className="text-purple-500 transform hover:scale-110 transition duration-200 " />
             <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block 
-                       bg-red-200 text-white text-xs rounded-xl px-3 py-1 shadow-lg">
+                       bg-purple-400 text-white text-xs rounded-xl px-3 py-1 shadow-lg">
         Register
-      </span>
+            </span>
+            {isRegisterOpen && <RegisterPortal setIsRegisterOpen={setIsRegisterOpen}  />}
           </div>
          <div className="relative group inline-block">
-  <FaShoppingCart size={26} className="cursor-pointer transform hover:scale-110 transition duration-200 text-red-300" />
-  <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block 
-                   bg-red-200 text-white text-xs rounded-xl px-3 py-1 shadow-lg">
+            <FaShoppingCart size={26} className="cursor-pointer transform hover:scale-110 transition duration-200 text-purple-500 " />
+             <span className="absolute p-2 text-xs rounded-xl  text-white -top-1.5 left-1">{cartCount}</span>
+            <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block 
+                   bg-purple-400 text-white text-xs rounded-xl px-3 py-1 shadow-lg">
     Cart
-  </span>
+            </span>
+            
 </div>
-      
+      <div className="relative group inline-block">
+            <FaRegHeart  size={26} className="cursor-pointer transform hover:scale-110 transition duration-200 text-purple-500 " />
+             <span className="absolute p-2 text-xs rounded-xl  text-purple-600 -top-1 left-0.5">0</span>
+            <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block 
+                   bg-purple-400 text-white text-xs rounded-xl px-3 py-1 shadow-lg">
+    Wishlist
+            </span>
+            
+</div>
                  
           </nav>
               <button className={`md:hidden block `} onClick={() => setIsOpen(!isOpen)}>

@@ -1,19 +1,18 @@
-
+import { Outlet } from 'react-router'
 import './App.css'
-import CategoryContainer from './components/CategoryContainer'
-
-
+import Footer from './components/Footer'
 import Header from './components/Header'
-import ProductsContainer from './components/ProductsContainer'
+import { useState } from 'react'
 
 
 function App() {
-
+const [cart , setCart] = useState([])
   return (
     <>
-      <Header />
-      <CategoryContainer/>
-      <ProductsContainer />
+      
+        <Header cartCount={cart?.length}/>
+      <Outlet  context={{ cart, setCart }}/>
+        <Footer />
       
     </>
   )
