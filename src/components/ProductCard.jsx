@@ -78,7 +78,7 @@ const tag= tags?.[1];
         </div>
 
         <div className="buttons flex  justify-around">
-           <button onClick={()=> setCart(handleCartItem)} className="bg-purple-600 text-white py-2 rounded-lg text-sm px-5 font-medium hover:bg-purple-700 flex items-center gap-2 active:scale-95 transition-all duration-200">
+           <button onClick={handleCartItem} className="bg-purple-600 text-white py-2 rounded-lg text-sm px-5 font-medium hover:bg-purple-700 flex items-center gap-2 active:scale-95 transition-all duration-200">
           Cart <FaShoppingCart size={18}/>
         </button>
          <button  className="bg-purple-600 px-5 text-white  rounded-lg text-sm font-medium hover:bg-purple-700 active:scale-95 transition-all duration-200 flex items-center gap-2">
