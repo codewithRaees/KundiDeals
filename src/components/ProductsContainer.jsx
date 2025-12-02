@@ -6,7 +6,8 @@ import { useOutletContext } from "react-router";
 const ProductsContainer = () => {
   const [productData, setProductData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const {cart, setCart} = useOutletContext()
+const { cart = [], setCart = () => {} } = useOutletContext() || {};
+
  
   useEffect(() => {
     

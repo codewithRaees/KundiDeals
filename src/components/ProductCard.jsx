@@ -24,7 +24,7 @@ const tag= tags?.[1];
       return
     } 
     
-    setCart([...cart, {...productInfo, quantity: 1}]);
+    setCart(prevCart => [...(prevCart || []), { ...productInfo, quantity: 1 }]);
     localStorage.setItem("cart", JSON.stringify([...cart, productInfo]));
   }
   return (
