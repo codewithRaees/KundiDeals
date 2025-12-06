@@ -5,8 +5,9 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from "framer-motion";
 import RegisterPortal from "./RegisterPortal";
 import { Link } from "react-router";
+import ItemsInCardPortal from "./ItemsInCardPortal";
 
-export default function Header({cartCount}) {
+export default function Header({cart, cartCount}) {
   const [isOpen, setIsOpen] = useState(false)
   const [isRegisterOpen, setIsRegisterOpen] = useState(false)
     const mainMenu = ['Home', 'Products', 'About', 'Contact','Tasks Completed']
@@ -46,18 +47,18 @@ export default function Header({cartCount}) {
             </span>
             {isRegisterOpen && <RegisterPortal setIsRegisterOpen={setIsRegisterOpen}  />}
           </div>
-         <div className="relative group inline-block">
+         <div className="relative group inline-block" >
             <FaShoppingCart size={26} className="cursor-pointer transform hover:scale-110 transition duration-200 text-purple-500 " />
-             <span className="absolute p-2 text-xs rounded-xl  text-white -top-1.5 left-1">{cartCount}</span>
+             <span className="absolute  text-xs rounded-full bg-purple-500 items-center flex justify-center w-4 h-4  text-white -top-3 left-2">{cartCount}</span>
             <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block 
                    bg-purple-400 text-white text-xs rounded-xl px-3 py-1 shadow-lg">
     Cart
             </span>
-            
+            {cartCount > 0 && <ItemsInCardPortal cart={cart} />}     
 </div>
       <div className="relative group inline-block">
             <FaRegHeart  size={26} className="cursor-pointer transform hover:scale-110 transition duration-200 text-purple-500 " />
-             <span className="absolute p-2 text-xs rounded-xl  text-purple-600 -top-1 left-0.5">0</span>
+             <span className="absolute  text-xs rounded-full bg-purple-500 items-center flex justify-center w-4 h-4  text-white -top-3.5 left-1">0</span>
             <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block 
                    bg-purple-400 text-white text-xs rounded-xl px-3 py-1 shadow-lg">
     Wishlist

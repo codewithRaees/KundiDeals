@@ -1,5 +1,5 @@
 // RegisterModal.jsx
-import React from "react";
+
 import ReactDOM from "react-dom";
 import { X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";

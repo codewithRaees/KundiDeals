@@ -10,7 +10,7 @@ const [cart , setCart] = useState([])
   return (
     <>
       
-        <Header cartCount={cart?.length}/>
+        <Header cart={cart} cartCount={cart?.length}/>
       <Outlet  context={{ cart, setCart }}/>
         <Footer />
       
