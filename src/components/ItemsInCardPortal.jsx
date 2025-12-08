@@ -1,34 +1,70 @@
 import React, { useState } from 'react'
 import { createPortal } from 'react-dom'
 
-const ItemsInCardPortal = ({cart}) => {
-    const [position, setPosition] = useState({ top: 0, left: 0 });
+const ItemsInCardPortal = ({cart , cartPosition}) => {
+   
     console.log(cart)
   return (
     createPortal(<div
-      className="absolute bg-white shadow-lg rounded-lg p-4 w-64 z-50"
-      style={{ top: position.top + 40, left: position.left }} // adjust position below cart
+      className="absolute bg-purple-100 shadow-lg rounded-lg p-4 w-auto z-50 transition-all ease-in-out duration-1000 "
+      style={{ top: cartPosition.top + 30, left: Math.min(
+      Math.max(cartPosition.left, 10),
+      window.innerWidth - 500 - 10
+    ),  }} 
     >
       <h2 className="font-bold mb-2">Cart Items</h2>
-      {cart.map((item) => (
-        <div key={item.id} className="flex justify-between items-center mb-2">
-          <span>{item.name} x {item.quantity}</span>
-          <div className="flex gap-2">
-            <button
-              
-              className="bg-green-500 text-white px-2 rounded"
-            >
-              +
-            </button>
-            <button
-             
-              className="bg-red-500 text-white px-2 rounded"
-            >
-              -
-            </button>
-          </div>
-        </div>
-      ))}
+     <table className="w-full text-sm border-collapse">
+  <thead>
+    <tr className="border-b ">
+      <th className="p-2 text-left">S.No</th>
+      <th className="p-2 text-left">Image</th>
+      <th className="p-2 text-left">Name</th>
+      <th className="p-2 text-center">Quantity</th>
+      <th className="p-2 text-right">Price</th>
+      <th className="p-2 text-right">Total</th>
+      <th className="p-2 text-center">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {cart.map((item, index) => (
+      <tr key={item.id} className="border-b">
+       
+        <td className="p-2">{index + 1}</td>
+
+       
+        <td className="p-2">
+          <img
+            src={item.images[0]} 
+            alt={item.title}
+            className="h-10 w-10 object-contain rounded"
+          />
+        </td>
+
+       
+        <td className="p-2 text-xs truncate max-w-[100px] whitespace-normal wrap-break-word">{item.title}</td>
+
+       
+        <td className="p-2 text-center">{item.quantity}</td>
+
+        <td className="p-2 text-right">${item.price}</td>
+
+      
+        <td className="p-2 text-right">${(item.price * item.quantity).toFixed(2)}</td>
+
+        <td className="p-2 text-center ">
+          <button className="bg-green-500 text-white px-2 py-1 mr-2 rounded text-xs">
+            +
+          </button>
+          <button className="bg-red-500 text-white px-2 py-1 rounded text-xs">
+            -
+          </button>
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+
     </div>,document.getElementById('item-in-cart'))
   )
 }
