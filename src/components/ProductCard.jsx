@@ -12,7 +12,6 @@ const ProductCard = ({ productInfo, cart,  setCart}) => {
   const { images = [], title, price, category, rating, count, tags = [] } = productInfo
   const image = images?.[0];
 const tag= tags?.[1];
- 
   const handleCartItem = () => {
     const isProductExist = cart.some(product => product.id === productInfo.id);
     if (isProductExist) {
@@ -80,7 +79,7 @@ const tag= tags?.[1];
           
           <div className=" relative flex justify-between items-center  detail">
             <p className="text-xs text-gray-500 mb-2 capitalize">{category}</p>
-            <span className={`absolute right-2  bg-purple-600 text-white py-1  px-2 rounded-lg text-sm font-medium hover:bg-purple-700 active:scale-100  transition-all duration-200 cursor-pointer ${detailButton ? "transition-all duration-300" : "hidden"}`}><Link to={`/product/${tag?.replace(/\s+/, "-").toLowerCase()}`} state ={{productInfo} }>Details</Link></span></div>
+            <span className={`absolute right-2  bg-purple-600 text-white py-1  px-2 rounded-lg text-sm font-medium hover:bg-purple-700 active:scale-100  transition-all duration-200 cursor-pointer ${detailButton ? "transition-all duration-300" : "hidden"}`}><Link to={`/product/${tag?.replace(/\s+/, "-").toLowerCase()}`} state ={{ productDetail: productInfo } }>Details</Link></span></div>
         </div>
         
 

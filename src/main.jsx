@@ -12,7 +12,7 @@ import ProductDetail from './components/ProductDetail.jsx'
 const router = createBrowserRouter([{
    path: '/',
   element: <App />,
-  errorElement: <h1>Not Found page</h1>,
+  errorElement: <h1>Not Found page.Rais</h1>,
   
   children: [
    {

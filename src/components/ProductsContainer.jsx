@@ -1,31 +1,13 @@
-import { useEffect, useState } from "react";
+
 import ProductCard from "./ProductCard";
 import Shimmer from "./Shimmer";
 import { useOutletContext } from "react-router";
 
 const ProductsContainer = () => {
-  const [productData, setProductData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const {cart, setCart} = useOutletContext()
+  
+  const {cart, setCart , productData, loading} = useOutletContext()
    console.log(cart)
-  useEffect(() => {
-    
-    async function requestData() {
-      try {
-        const response = await fetch("https://dummyjson.com/products?limit=0");
-        const data = await response.json();
-        setProductData(data.products || []);
-        
-      }
-      
-      catch {
-        console.log("Data Fetching Error");
-      } finally {
-        setLoading(false);
-      }
-    }
-    requestData();
-  }, []);
+ 
   return (
     <main className="min-h-screen bg-gray-50 flex justify-center items-center p-6">
       {loading ? (

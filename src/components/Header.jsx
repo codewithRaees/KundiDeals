@@ -7,7 +7,7 @@ import RegisterPortal from "./RegisterPortal";
 import { Link } from "react-router";
 import ItemsInCardPortal from "./ItemsInCardPortal";
 
-export default function Header({cart, cartCount}) {
+export default function Header({cart,setCart, cartCount}) {
   const [isOpen, setIsOpen] = useState(false)
   const [isRegisterOpen, setIsRegisterOpen] = useState(false)
   const [cartPosition, setCartPosition] = useState(null)
@@ -69,7 +69,7 @@ export default function Header({cart, cartCount}) {
                    bg-purple-400 text-white text-xs rounded-xl px-3 py-1 shadow-lg">
     Cart
             </span>
-            {cartCount > 0 && cartPosition && <ItemsInCardPortal cart={cart} cartPosition={cartPosition} />}     
+            {cartCount > 0 && cartPosition && <ItemsInCardPortal setCart={setCart} cart={cart} onMouseLeave={handleMouseLeave} onMouseOver={handleMouseOver} cartPosition={cartPosition} />}     
 </div>
       <div className="relative group inline-block">
             <FaRegHeart  size={26} className="cursor-pointer transform hover:scale-110 transition duration-200 text-purple-500 " />

@@ -1,12 +1,34 @@
-import { useLocation } from "react-router";
+import { Link, useLocation } from "react-router";
 import { FaStar } from "react-icons/fa";
-import { FaHeart, FaShoppingCart, FaRegHeart } from "react-icons/fa";
-import { useState } from "react";
-const ProductDetail = () => {
+import { FaHeart,FaArrowLeft, FaShoppingCart, FaRegHeart } from "react-icons/fa";
+
+import { useEffect, useRef, useState } from "react";
+const ProductDetail = ({  zoom = 3}) => {
    const [wish, setWish] = useState(false); // wishlist toggle
   const { state } = useLocation();
-  const product = state?.productDetail;
-    console.log(product)
+  const [product, setProduct] = useState(null)
+   const [showZoom, setShowZoom] = useState(false)
+      const [position , setPosition] = useState({x:0 , y:0})
+      
+      const imageRef = useRef(null)
+  
+      const handleMouseMove = (e) => {
+          
+          const { left, top, width, height } = imageRef.current.getBoundingClientRect()
+          console.log(left, top, width, height)
+          console.log(position)
+          const x = ((e.clientX - left) / width) * 100
+          const y = ((e.clientY - top) / height) * 100
+          setPosition({ x, y })
+       }
+  
+  useEffect(() => {
+     if(state.productDetail){
+       setProduct(state.productDetail)
+     }
+   },[state])
+ 
+    
   if (!product) {
     return (
       <div className="text-center mt-20 text-xl font-semibold text-red-600">
@@ -16,26 +38,67 @@ const ProductDetail = () => {
   }
 
   return (
-      <div className="main-wrapper m-auto  max-w-5xl mx-auto p-6 grid grid-cols-1 md:grid-cols-2 gap-20">
+    <>
+      <div className=" relative  ">
+  
+  {/* Go Back button inside main wrapper */}
+  <div 
+    className="go-back absolute top-5 left-5 bg-purple-600 text-white px-2 md:px-4 py-1 md:py-2 rounded-full shadow-md cursor-pointer hover:bg-purple-700 transition-all flex items-center gap-1 md:gap-2"
+    onClick={() => console.log("hi")}
+  >
+    <FaArrowLeft />
+    Go Back
+  </div>
+
+ 
+
+      <div className="relative  flex items-center justify-center flex-col md:flex-row p-6">
+     
            <div className="left-wrapper rounded-2xl">
   <div className="image-wrapper  relative rounded-2xl flex justify-center items-center">
     {/* Discount Badge */}
     {product.discountPercentage && (
-      <div className="discount absolute bg-purple-600 w-14 h-14 rounded-full text-white flex justify-center items-center top-5 right-3 md:right-8">
+      <div className="discount absolute bg-purple-600 w-14 h-14 rounded-full text-white flex justify-center items-center top-5 right-0  md:right-8">
         <span className="font-semibold text-sm">{product.discountPercentage ? "Sale" : ""}</span>
       </div>
     )}
 
     {/* Product Image */}
-    <img
+              <img
+                onMouseEnter={() => setShowZoom(true)}
+        onMouseLeave={() => setShowZoom(false)}
+                onMouseMove={handleMouseMove}
+                ref={imageRef}
       src={product.images[0]}
       alt={product.title}
       className="object-contain w-full max-w-md h-60 md:h-96 rounded-2xl"
-    />
-  </div>
+              />
+              {/* Lens Effect */}
+        {showZoom && (
+          <div
+            className="absolute w-24 h-24 border-2 border-white rounded-full bg-white/20 pointer-events-none"
+            style={{
+              top: `${position.y}%`,
+              left: `${position.x}%`,
+              transform: "translate(-50%, -50%)",
+            }}
+          ></div>
+        )}
+            </div>
+             {/* Zoomed Image */}
+          {showZoom && (<div className=" top-3 right-0 md:right-40 z-10 absolute   md:w-[500px] md:h-[500px]  rounded-xl overflow-hidden">
+          <div
+            className="w-full h-full bg-no-repeat"
+            style={{
+              backgroundImage: `url(${product.images[0]})`,
+              backgroundSize: `${zoom * 100}%`,
+              backgroundPosition: `${position.x}% ${position.y}%`,
+            }}
+          ></div>
+        </div>)}
 </div>
 
-          <div className="right-wrapper w-full md:w-96 flex  flex-col justify-center">
+          <div className="right-wrapper items-start w-full md:w-96 flex  flex-col justify-center">
               <div className="product-name text-2xl font-semibold mb-3">{product.title}</div>
               <div className="product-name   mb-2"><span className="font-semibold">Brand:</span> {product.brand}</div>
               <div className="product-price relative flex justify-start gap-2 items-center ">
@@ -89,7 +152,14 @@ const ProductDetail = () => {
 
     </div>
           </div>
-    </div>
+        </div>
+        
+</div>
+
+
+
+    </>
+    
   );
 };
 

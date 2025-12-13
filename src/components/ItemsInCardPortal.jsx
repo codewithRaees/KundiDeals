@@ -1,15 +1,38 @@
-import React, { useState } from 'react'
 import { createPortal } from 'react-dom'
 
-const ItemsInCardPortal = ({cart , cartPosition}) => {
-   
-    console.log(cart)
+const ItemsInCardPortal = ({cart ,setCart, cartPosition,onMouseLeave , onMouseOver}) => {
+ 
+  const handleIncreaseItem = (itemId) => {
+
+    const updatedCart = cart.map((cartItem) => {
+      if (cartItem.id === itemId) {
+        return { ...cartItem, quantity: cartItem.quantity + 1 }
+      }
+      return cartItem
+    })
+    setCart(updatedCart)
+    localStorage.setItem('cart', JSON.stringify(updatedCart))
+    return updatedCart
+  }
+  const handleDecreaseItem = (itemId) => {
+
+    const updatedCart = cart.map((cartItem) => {
+      if (cartItem.id === itemId) {
+        return { ...cartItem, quantity: cartItem.quantity - 1 }
+      }
+      return cartItem
+    }).filter((cartItem)=> cartItem.quantity > 0)
+    setCart(updatedCart)
+    localStorage.setItem('cart', JSON.stringify(updatedCart))
+    return updatedCart
+  }
+ 
   return (
-    createPortal(<div
+    createPortal(<div onMouseOver={onMouseOver} onMouseLeave={onMouseLeave}
       className="absolute bg-purple-100 shadow-lg rounded-lg p-4 w-auto z-50 transition-all ease-in-out duration-1000 "
-      style={{ top: cartPosition.top + 30, left: Math.min(
+      style={{ top: cartPosition.top + 25, left: Math.min(
       Math.max(cartPosition.left, 10),
-      window.innerWidth - 500 - 10
+      window.innerWidth - 550 - 10
     ),  }} 
     >
       <h2 className="font-bold mb-2">Cart Items</h2>
@@ -53,10 +76,10 @@ const ItemsInCardPortal = ({cart , cartPosition}) => {
         <td className="p-2 text-right">${(item.price * item.quantity).toFixed(2)}</td>
 
         <td className="p-2 text-center ">
-          <button className="bg-green-500 text-white px-2 py-1 mr-2 rounded text-xs">
+          <button onClick={() => handleIncreaseItem(item.id)} className="bg-green-500 text-white px-2 py-1 mr-2 rounded text-xs">
             +
           </button>
-          <button className="bg-red-500 text-white px-2 py-1 rounded text-xs">
+          <button onClick={() => handleDecreaseItem(item.id)} className="bg-red-500 text-white px-2 py-1 rounded text-xs">
             -
           </button>
         </td>
