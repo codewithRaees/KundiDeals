@@ -5,9 +5,8 @@ import { useOutletContext } from "react-router";
 
 const ProductsContainer = () => {
   
-  const {cart, setCart , productData, loading} = useOutletContext()
-   console.log(cart)
- 
+  const {cart, setCart , productData, loading, handleCartItem, itemAddedMessage,addedProductId} = useOutletContext()
+   
   return (
     <main className="min-h-screen bg-gray-50 flex justify-center items-center p-6">
       {loading ? (
@@ -36,6 +35,9 @@ const ProductsContainer = () => {
                 productInfo={product}
                 cart={cart}
                 setCart={setCart}
+                handleCartItem={handleCartItem}
+                itemAddedMessage={itemAddedMessage}
+                addedProductId={addedProductId}
             />
           ))}
         </div>

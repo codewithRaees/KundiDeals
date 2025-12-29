@@ -4,42 +4,13 @@ import { Link, useOutletContext } from "react-router";
 import { FaHeart,FaShoppingBag , FaShoppingCart, FaRegHeart } from "react-icons/fa";
 import ProductDetail from "./ProductDetail";
 import ItemAddedToCartPortal from "./ItemAddedToCartPortal";
-const ProductCard = ({ productInfo, cart,  setCart}) => {
+const ProductCard = ({ productInfo, handleCartItem , itemAddedMessage , addedProductId}) => {
   const [detailButton, setDetailButton] = useState(false)
   const [addToWishList, setAddToWishList] = useState(false)
-  const [showItemAddedToCartPortal, setShowItemAddedToCartPortal] = useState(false)
-  const [itemAddedMessage , setItemAddedMessage] = useState("Added to cart!")
   const { images = [], title, price, category, rating, count, tags = [] } = productInfo
   const image = images?.[0];
 const tag= tags?.[1];
-  const handleCartItem = () => {
-    const isProductExist = cart.some(product => product.id === productInfo.id);
-    if (isProductExist) {
-      setItemAddedMessage("Item already in cart!")
-      setShowItemAddedToCartPortal(true)
-      setTimeout(() => {
-      setShowItemAddedToCartPortal(false)
-      setItemAddedMessage("Added to cart!")
-    }, 2000);
-      const updatedCart = cart.map(product => {
-        if (product.id === productInfo.id) {
-          return { ...product, quantity: product.quantity + 1 };
-        }
-        return product;
-      });
-      setCart(updatedCart);
-      localStorage.setItem("cart", JSON.stringify(updatedCart));
-      return
-    }
-    
-    setCart([...cart, { ...productInfo, quantity: 1 }]);
-    setShowItemAddedToCartPortal(true)
-    setTimeout(() => {
-      setShowItemAddedToCartPortal(false)
-      setItemAddedMessage("Added to cart!")
-    }, 2000);
-    localStorage.setItem("cart", JSON.stringify([...cart, productInfo]));
-  }
+  
   return (
     <div className="card w-64 bg-white border border-gray-100 shadow-lg hover:shadow-2xl transition-all duration-300 rounded-2xl block md:overflow-hidden"
       onMouseOver={() => setDetailButton(true)}
@@ -91,8 +62,10 @@ const tag= tags?.[1];
         </div>
 
         <div className="relative buttons flex  justify-around">
-           <ItemAddedToCartPortal showItemAddedToCartPortal={showItemAddedToCartPortal} message={itemAddedMessage} />
-           <button onClick={handleCartItem} className="bg-purple-600 text-white py-2 rounded-lg text-sm px-5 font-medium hover:bg-purple-700 flex items-center gap-2 active:scale-95 transition-all duration-200">
+         {addedProductId === productInfo.id && (
+  <ItemAddedToCartPortal message={itemAddedMessage} />
+)} 
+           <button onClick={()=> handleCartItem(productInfo)} className="bg-purple-600 text-white py-2 rounded-lg text-sm px-5 font-medium hover:bg-purple-700 flex items-center gap-2 active:scale-95 transition-all duration-200">
           Cart <FaShoppingCart size={18}/>
           </button>
           

@@ -1,22 +1,33 @@
 
 import CategoryCard from './CategoryCard'
 import { useOutletContext } from 'react-router'
+import {motion, useAnimation} from 'framer-motion'
 
 const CategoryContainer = () => {
   const { productCategories } = useOutletContext()
-   console.log(productCategories)
+   const controls = useAnimation()
    
   return (
       <section className="py-8 px-4">
          
       <div className="max-w-6xl mx-auto">
         <header className="mb-6 flex items-center justify-between">
-          <h2 className="text-2xl font-bold text-gray-800">Categories</h2>
-          <p className="text-sm text-gray-500 hidden sm:block">
-            Tap a category to filter products
-          </p>
+          <h2 className="text-2xl font-bold text-gray-800">Browse Categories</h2>
+          
         </header>
- <div className="grid grid-items-center grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="overflow-hidden py-2">
+          <motion.div
+            className="flex gap-4"
+            animate={{ x: ['100%', '-100%'] }}
+            transition={{
+              repeat: Infinity,
+              repeatType: 'loop',
+              duration:15,
+              ease: 'linear'
+            }}
+            onHoverStart={() => controls.stop()}
+            onHoverEnd={()=>controls.start()}
+          >
           {productCategories.map((cat, index) => (
             
             <CategoryCard
@@ -25,7 +36,8 @@ const CategoryContainer = () => {
                       name={cat.name}
                       image={cat.image}
                   />
-                  ))}
+          ))}
+            </motion.div>
                   </div>
       </div>
           </section>

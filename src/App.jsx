@@ -10,6 +10,26 @@ function App() {
   const [productData, setProductData] = useState([]);
    const [productCategories, setProductCategories] = useState([])
   const [loading, setLoading] = useState(true);
+  const [addedProductId, setAddedProductId] = useState(null);
+  const [itemAddedMessage, setItemAddedMessage] = useState("Added to cart!");
+  const handleCartItem = (product) => {
+    const isExist = cart.some(p => p.id === product.id);
+
+    if (isExist) {
+      setItemAddedMessage("Item already in cart!");
+      
+    } else {
+      setItemAddedMessage("Added to cart!");
+      setCart(prev => [...prev, { ...product, quantity: 1 }]);
+    }
+
+    setAddedProductId(product.id);
+
+    setTimeout(() => {
+      setAddedProductId(null);
+      setItemAddedMessage("Added to cart!");
+    }, 2000);
+  }
    useEffect(() => {
     
     async function requestData() {
@@ -48,7 +68,7 @@ function App() {
     <>
       
         <Header cart={cart} setCart={setCart} cartCount={cart?.length}/>
-      <Outlet  context={{ cart, setCart , productData, setProductData, loading, setLoading , productCategories}}/>
+      <Outlet  context={{ cart, setCart , productData, setProductData, loading, setLoading , productCategories, handleCartItem, itemAddedMessage, addedProductId}}/>
         <Footer />
       
     </>

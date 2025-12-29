@@ -12,7 +12,7 @@ export default function Header({cart,setCart, cartCount}) {
   const [isRegisterOpen, setIsRegisterOpen] = useState(false)
   const [cartPosition, setCartPosition] = useState(null)
   const cartRef = useRef(null)
-    const mainMenu = ['Home', 'Products', 'About', 'Contact','Tasks Completed']
+    const mainMenu = ['Home', 'Products', 'About', 'Contact']
 
     useEffect(() => {
         const handleResize = () => {

@@ -1,10 +1,10 @@
 
 
 
-const ItemAddedToCartPortal = ({ showItemAddedToCartPortal,message }) => {
+const ItemAddedToCartPortal = ({ message }) => {
  
   
-   if (!showItemAddedToCartPortal) return null;
+   
   return (
    
      <div className="absolute bottom-16 left-1/2 -translate-x-1/2 

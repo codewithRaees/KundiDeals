@@ -16,7 +16,7 @@ const ProductImageMagnifier = ({image , zoom = 3}) => {
         setPosition({ x, y })
      }
   return (
-      <div className='flex gap-5'>
+      <div>
           {/* Original Image */}
           <div className="relative w-[300px] h-[300px] overflow-hidden border rounded-xl"
               onMouseEnter={() => setShowZoom(true)}
@@ -38,7 +38,7 @@ const ProductImageMagnifier = ({image , zoom = 3}) => {
         )}
           </div>
           {/* Zoomed Image */}
-          <div className="w-[300px] h-[300px] border rounded-xl overflow-hidden">
+          <div className="w-[300px] h-[300px] border  absolute bottom-full">
           <div
             className="w-full h-full bg-no-repeat"
             style={{

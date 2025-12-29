@@ -1,17 +1,20 @@
-import { Link, useLocation } from "react-router";
+import { Link, useLocation, useOutletContext } from "react-router";
 import { FaStar } from "react-icons/fa";
 import { FaHeart,FaArrowLeft, FaShoppingCart, FaRegHeart } from "react-icons/fa";
 
 import { useEffect, useRef, useState } from "react";
+import ItemAddedToCartPortal from "./ItemAddedToCartPortal";
 const ProductDetail = ({  zoom = 3}) => {
-   const [wish, setWish] = useState(false); // wishlist toggle
-  const { state } = useLocation();
+  const [wish, setWish] = useState(false); // wishlist toggle
+  const { handleCartItem, itemAddedMessage,addedProductId } = useOutletContext()
+  
+  const {state } = useLocation();
+  const { productDetail  } = state
   const [product, setProduct] = useState(null)
    const [showZoom, setShowZoom] = useState(false)
       const [position , setPosition] = useState({x:0 , y:0})
-      
       const imageRef = useRef(null)
-  
+  console.log(productDetail)
       const handleMouseMove = (e) => {
           
           const { left, top, width, height } = imageRef.current.getBoundingClientRect()
@@ -23,10 +26,10 @@ const ProductDetail = ({  zoom = 3}) => {
        }
   
   useEffect(() => {
-     if(state.productDetail){
-       setProduct(state.productDetail)
+     if(productDetail){
+       setProduct(productDetail)
      }
-   },[state])
+   },[productDetail])
  
     
   if (!product) {
@@ -76,7 +79,7 @@ const ProductDetail = ({  zoom = 3}) => {
               {/* Lens Effect */}
         {showZoom && (
           <div
-            className="absolute w-24 h-24 border-2 border-white rounded-full bg-white/20 pointer-events-none"
+            className="absolute  w-24 h-24 border-2 border-white rounded-full bg-white/20 pointer-events-none"
             style={{
               top: `${position.y}%`,
               left: `${position.x}%`,
@@ -86,7 +89,7 @@ const ProductDetail = ({  zoom = 3}) => {
         )}
             </div>
              {/* Zoomed Image */}
-          {showZoom && (<div className=" top-3 right-0 md:right-40 z-10 absolute   md:w-[500px] md:h-[500px]  rounded-xl overflow-hidden">
+          {showZoom && (<div className=" top-3 pointer-events-none  z-10 absolute   md:w-[450px] md:h-[450px]   overflow-hidden">
           <div
             className="w-full h-full bg-no-repeat"
             style={{
@@ -123,10 +126,13 @@ const ProductDetail = ({  zoom = 3}) => {
 </div>
         <div className="product-description">{product.description}</div>
 
-        <div className="flex items-center gap-3 mt-4">
-
+        <div className="flex relative items-center gap-3 mt-4">
+               {/* Item Added Portal */}
+  {addedProductId === productDetail.id && (
+    <ItemAddedToCartPortal message={itemAddedMessage} />
+  )}
       {/* Add to Cart Button */}
-      <button className="flex hover:scale-105 items-center gap-2 border border-purple-600  text-sm font-semibold px-4 py-2 rounded-full bg-purple-600 text-white transition-all">
+      <button onClick={()=> handleCartItem(productDetail)} className="flex hover:scale-105 items-center gap-2 border border-purple-600  text-sm font-semibold px-4 py-2 rounded-full bg-purple-600 text-white transition-all">
         <FaShoppingCart size={16} />
         Add to Cart
       </button>
