@@ -3,10 +3,14 @@ import ProductCard from "./ProductCard";
 import Shimmer from "./Shimmer";
 import { useOutletContext } from "react-router";
 
+
 const ProductsContainer = () => {
   
-  const {cart, setCart , productData, loading, handleCartItem, itemAddedMessage,addedProductId} = useOutletContext()
-   
+  const {searchQuery, cart, setCart , productData, loading, handleCartItem, itemAddedMessage,addedProductId} = useOutletContext()
+   const filteredProduct = productData.filter((product) => 
+        product.title.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+    
   return (
     <main className="min-h-screen bg-gray-50 flex justify-center items-center p-6">
       {loading ? (
@@ -18,9 +22,10 @@ const ProductsContainer = () => {
             ))}
         </div>
       ) : (
+        
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 justify-items-center">
-            
-            {productData.map((product) => (
+          
+            {filteredProduct.map((product) => (
              
           
             <ProductCard

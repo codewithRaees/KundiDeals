@@ -12,6 +12,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [addedProductId, setAddedProductId] = useState(null);
   const [itemAddedMessage, setItemAddedMessage] = useState("Added to cart!");
+  const [searchQuery , setSearchQuery] = useState('')
   const handleCartItem = (product) => {
     const isExist = cart.some(p => p.id === product.id);
 
@@ -68,7 +69,7 @@ function App() {
     <>
       
         <Header cart={cart} setCart={setCart} cartCount={cart?.length}/>
-      <Outlet  context={{ cart, setCart , productData, setProductData, loading, setLoading , productCategories, handleCartItem, itemAddedMessage, addedProductId}}/>
+      <Outlet  context={{searchQuery , setSearchQuery , cart, setCart , productData, setProductData, loading, setLoading , productCategories, handleCartItem, itemAddedMessage, addedProductId}}/>
         <Footer />
       
     </>

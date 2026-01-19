@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import RegisterPortal from "./RegisterPortal";
 import { Link } from "react-router";
 import ItemsInCardPortal from "./ItemsInCardPortal";
+import SearchBox from "./SearchBox";
 
 export default function Header({cart,setCart, cartCount}) {
   const [isOpen, setIsOpen] = useState(false)
@@ -52,7 +53,9 @@ export default function Header({cart,setCart, cartCount}) {
                   }
                  
           </ul>
-          <div  className="relative group inline-block">
+           {/* <SearchBox /> */}
+          <div className="relative group inline-block">
+           
             <FaUser onClick={() => 
               setIsRegisterOpen(!isRegisterOpen)
              } size={26} className="text-purple-500 transform hover:scale-110 transition duration-200 " />

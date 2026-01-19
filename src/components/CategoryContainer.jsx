@@ -2,6 +2,7 @@
 import CategoryCard from './CategoryCard'
 import { useOutletContext } from 'react-router'
 import {motion, useAnimation} from 'framer-motion'
+import SearchBox from './SearchBox'
 
 const CategoryContainer = () => {
   const { productCategories } = useOutletContext()
@@ -13,7 +14,7 @@ const CategoryContainer = () => {
       <div className="max-w-6xl mx-auto">
         <header className="mb-6 flex items-center justify-between">
           <h2 className="text-2xl font-bold text-gray-800">Browse Categories</h2>
-          
+           <SearchBox/>
         </header>
         <div className="overflow-hidden py-2">
           <motion.div
