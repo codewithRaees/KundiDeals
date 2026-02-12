@@ -1,19 +1,19 @@
-import { Menu, X, ShoppingCart, User } from "lucide-react";
-import { FaUser,FaShoppingCart, FaRegHeart  } from "react-icons/fa";
+import { Menu, X } from "lucide-react";
+import { FaEye,FaUser,FaShoppingCart, FaRegHeart,FaHeart  } from "react-icons/fa";
 import logo from '../assets/images/logo.png';
 import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from "framer-motion";
 import RegisterPortal from "./RegisterPortal";
 import { Link } from "react-router";
 import ItemsInCardPortal from "./ItemsInCardPortal";
-import SearchBox from "./SearchBox";
-
-export default function Header({cart,setCart, cartCount}) {
+export default function Header({cart,setCart, cartCount,wishListCount, wishList , setWishList}) {
   const [isOpen, setIsOpen] = useState(false)
   const [isRegisterOpen, setIsRegisterOpen] = useState(false)
   const [cartPosition, setCartPosition] = useState(null)
   const cartRef = useRef(null)
-    const mainMenu = ['Home', 'Products', 'About', 'Contact']
+  const wishListRef = useRef(null)
+  
+    const mainMenu = ['Home', 'Furniture','Products', 'About', 'Contact']
 
     useEffect(() => {
         const handleResize = () => {
@@ -66,8 +66,9 @@ export default function Header({cart,setCart, cartCount}) {
             {isRegisterOpen && <RegisterPortal setIsRegisterOpen={setIsRegisterOpen}  />}
           </div>
          <div className="relative group inline-block" >
+         
             <FaShoppingCart onMouseLeave={handleMouseLeave} onMouseOver={handleMouseOver} ref={cartRef} size={26} className="cursor-pointer transform hover:scale-110 transition duration-200 text-red-500 " />
-             <span className="absolute  text-xs rounded-full bg-purple-500 items-center flex justify-center w-4 h-4  text-white -top-3 left-2">{cartCount}</span>
+             {cartCount > 0 && (<span className="absolute  text-xs rounded-full bg-purple-500 items-center flex justify-center w-4 h-4  text-white -top-4 left-2">{cartCount}</span>)}
             <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block 
                    bg-purple-400 text-white text-xs rounded-xl px-3 py-1 shadow-lg">
     Cart
@@ -75,13 +76,31 @@ export default function Header({cart,setCart, cartCount}) {
             {cartCount > 0 && cartPosition && <ItemsInCardPortal setCart={setCart} cart={cart} onMouseLeave={handleMouseLeave} onMouseOver={handleMouseOver} cartPosition={cartPosition} />}     
 </div>
       <div className="relative group inline-block">
-            <FaRegHeart  size={26} className="cursor-pointer transform hover:scale-110 transition duration-200 text-purple-500 " />
-             <span className="absolute  text-xs rounded-full bg-purple-500 items-center flex justify-center w-4 h-4  text-white -top-3.5 left-1">0</span>
-            <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block 
-                   bg-purple-400 text-white text-xs rounded-xl px-3 py-1 shadow-lg">
+  {wishListCount > 0 ? (
+    <FaHeart
+      size={26}
+      ref={wishListRef}
+      className="cursor-pointer text-purple-600 transform hover:scale-110 transition duration-200"
+    />
+  ) : (
+    <FaRegHeart
+      size={26}
+      ref={wishListRef}
+      className="cursor-pointer text-purple-500 transform hover:scale-110 transition duration-200"
+    />
+  )}
+
+  {wishListCount > 0 && (
+    <span className="absolute -top-4 left-1 text-xs rounded-full bg-purple-500 
+      flex items-center justify-center w-4 h-4 text-white">
+      {wishListCount}
+    </span>
+  )}
+
+  <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block 
+        bg-purple-400 text-white text-xs rounded-xl px-3 py-1 shadow-lg">
     Wishlist
-            </span>
-            
+  </span>
 </div>
                  
           </nav>

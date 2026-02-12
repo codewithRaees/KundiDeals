@@ -1,21 +1,15 @@
 
-import { useOutletContext } from "react-router";
+import {useOutletContext } from "react-router";
 import ProductCard from "./ProductCard";
 import Shimmer from "./Shimmer";
-import BottomLoader from "./BottomLoader";
 
-
-const ProductsContainer = () => {
+const Furniture = () => {
   
-  const {isFetchingMore,isInitialLoading,searchQuery, cart, setCart,  productData, handleCartItem, itemAddedMessage,addedProductId} = useOutletContext()
-   const filteredProduct = productData.filter((product) => 
-        product.title?.toLowerCase().includes(searchQuery?.toLowerCase())
-    )
-    
-    
+  const {productData , cart, setCart, loading, handleCartItem, itemAddedMessage,addedProductId} = useOutletContext()
+  const furnitureProduct = productData.filter((product)=>product.category === "furniture")
   return (
-<main className="min-h-screen bg-(--color-primary) p-6">
-      {isInitialLoading ? (
+ <main className="min-h-screen bg-(--color-primary) flex justify-center items-center p-6">
+      {loading ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 justify-items-center">
           {Array(10)
             .fill("")
@@ -25,12 +19,9 @@ const ProductsContainer = () => {
         </div>
       ) : (
         
-          <>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 justify-items-center">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 justify-items-center">
           
-            {filteredProduct.map((product) => (
-             
-          
+            {furnitureProduct.map((product) => (
             <ProductCard
               key={product.id}
                 image={product.images[0]}
@@ -48,17 +39,9 @@ const ProductsContainer = () => {
                 addedProductId={addedProductId}
             />
           ))}
-            </div>
-            {isFetchingMore && (
-  <div className="w-full flex justify-center mt-6">
-    <BottomLoader />
-  </div>
-)}
-          
-          </>
+        </div>
       )}
-    </main>
-  );
-};
+    </main>  )
+}
 
-export default ProductsContainer;
+export default Furniture

@@ -8,6 +8,7 @@ import Home from './components/Home.jsx'
 
 import ProductDetail from './components/ProductDetail.jsx'
 import ProductsContainer from './components/ProductsContainer.jsx'
+import Furniture from './components/Furniture.jsx'
 
 
 const router = createBrowserRouter([{
@@ -28,6 +29,10 @@ const router = createBrowserRouter([{
      {
    path: '/Products',
    element: <ProductsContainer/>
+    },
+ {
+   path: '/furniture',
+   element: <Furniture />
  },
       {
    path: '/product/:productName',

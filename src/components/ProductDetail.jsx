@@ -1,4 +1,4 @@
-import { Link, useLocation, useOutletContext } from "react-router";
+import { Link, useLocation, useNavigate, useOutletContext } from "react-router";
 import { FaStar } from "react-icons/fa";
 import { FaHeart,FaArrowLeft, FaShoppingCart, FaRegHeart } from "react-icons/fa";
 
@@ -7,14 +7,13 @@ import ItemAddedToCartPortal from "./ItemAddedToCartPortal";
 const ProductDetail = ({  zoom = 3}) => {
   const [wish, setWish] = useState(false); // wishlist toggle
   const { handleCartItem, itemAddedMessage,addedProductId } = useOutletContext()
-  
+  const navigate = useNavigate()
   const {state } = useLocation();
   const { productDetail  } = state
   const [product, setProduct] = useState(null)
    const [showZoom, setShowZoom] = useState(false)
       const [position , setPosition] = useState({x:0 , y:0})
       const imageRef = useRef(null)
-  console.log(productDetail)
       const handleMouseMove = (e) => {
           
           const { left, top, width, height } = imageRef.current.getBoundingClientRect()
@@ -39,15 +38,21 @@ const ProductDetail = ({  zoom = 3}) => {
       </div>
     );
   }
-
+ const handleBack=()=>{
+  if(window.history.length > 1){
+    navigate(-1)
+  } else {
+    navigate("/")
+  }
+ }
   return (
     <>
       <div className=" relative  ">
   
   {/* Go Back button inside main wrapper */}
   <div 
-    className="go-back absolute top-5 left-5 bg-purple-600 text-white px-2 md:px-4 py-1 md:py-2 rounded-full shadow-md cursor-pointer hover:bg-purple-700 transition-all flex items-center gap-1 md:gap-2"
-    onClick={() => console.log("hi")}
+    className="go-back z-10  absolute top-5 left-5  border-2 border-purple-600 text-purple-600 px-2 md:px-4 py-1 md:py-2 rounded-full shadow-md cursor-pointer hover:text-white hover:bg-purple-700 transition-all flex items-center gap-1 md:gap-2"
+    onClick={handleBack}
   >
     <FaArrowLeft />
     Go Back
