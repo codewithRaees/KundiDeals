@@ -9,6 +9,7 @@ import Home from './components/Home.jsx'
 import ProductDetail from './components/ProductDetail.jsx'
 import ProductsContainer from './components/ProductsContainer.jsx'
 import Furniture from './components/Furniture.jsx'
+import Laptops from './components/Laptops.jsx'
 
 
 const router = createBrowserRouter([{
@@ -29,6 +30,10 @@ const router = createBrowserRouter([{
      {
    path: '/Products',
    element: <ProductsContainer/>
+    },
+    {
+      path: '/Laptops',
+      element:<Laptops />
     },
  {
    path: '/furniture',

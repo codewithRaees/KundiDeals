@@ -13,7 +13,7 @@ const SearchBox = () => {
           <input ref={inputRef} type="search" value={searchQuery} onChange={(e)=>setSearchQuery(e.target.value)} placeholder='Search...' className={`border  border-gray-300 rounded-full focus:outline-none px-3 py-1  ml-2 text-gray-700 transition-width duration-300 ease-in-out $`} />
       <FaSearch
         size={18}
-        className="cursor-pointer text-purple-600"
+        className="cursor-pointer text-(--text-secondary)"
         onClick={handleClick}
       />
           

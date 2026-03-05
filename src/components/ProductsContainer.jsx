@@ -3,6 +3,7 @@ import { useOutletContext } from "react-router";
 import ProductCard from "./ProductCard";
 import Shimmer from "./Shimmer";
 import BottomLoader from "./BottomLoader";
+import SearchBox from "./SearchBox";
 
 
 const ProductsContainer = () => {
@@ -14,7 +15,10 @@ const ProductsContainer = () => {
     
     
   return (
-<main className="min-h-screen bg-(--color-primary) p-6">
+    <>
+      {/* <div className=" bg-(--color-primary) pt-3 pr-14 flex justify-end"><SearchBox/></div> */}
+    
+<main className="min-h-screen bg-(--color-primary) px-6 pt-6 pb-6">
       {isInitialLoading ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 justify-items-center">
           {Array(10)
@@ -58,6 +62,7 @@ const ProductsContainer = () => {
           </>
       )}
     </main>
+    </>
   );
 };
 

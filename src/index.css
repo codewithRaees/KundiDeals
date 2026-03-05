@@ -3,4 +3,12 @@
   --color-primary: #f0eee4;
   --color-secondary: #f0eee4;
   --color-accent: #22c55e;
+  --color-muted: #d4d3d3; 
+ --bg-primary: #000000;
+  --bg-secondary: #333333;
+
+  --text-primary: #000000;      /* pure black */
+  --text-secondary: #333333;    /* soft black */
+  --text-muted: #666666;        /* gray text */
+  --text-light: #ffffff;      
 }

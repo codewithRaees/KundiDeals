@@ -13,7 +13,7 @@ const Home = () => {
       
      
       <Slider />
-      {/* <CategoryContainer/> */}
+      <CategoryContainer/>
       <ProductsContainer />
     
     </>

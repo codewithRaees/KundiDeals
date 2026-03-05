@@ -65,7 +65,7 @@ const ItemsInCardPortal = ({cart ,setCart, cartPosition,onMouseLeave , onMouseOv
         </td>
 
        
-        <td className="p-2 text-xs truncate max-w-[100px] whitespace-normal wrap-break-word">{item.title}</td>
+        <td className="p-2 text-xs truncate max-w-25 whitespace-normal wrap-break-word">{item.title}</td>
 
        
         <td className="p-2 text-center">{item.quantity}</td>
